@@ -1,3 +1,4 @@
+#Inicialmente importamos as seguintes “libraries”.
 from vpython import *
 import time
 import math, random
@@ -5,12 +6,12 @@ import math, random
 #Introdução, intruções e escolha do planeta
 scene.caption = """És um orbe extraterrestre a tentar aterrar nos planetas do Sistema Solar. \n \nControlos: Propulsor: 'z'; Movimento da nave: W,A,S,D \n"""
 
-#Titulo do começo de jogo e tamanho da tela 
+#Titulo do começo de jogo e tamanho da tela
 scene.title = "Landing Game \n CUIDADO COM OS VENTOS FORTES! \n Clique na tecla 'P' para começar!"
 scene.width = 1000
 scene.height = 500
 scene.forward = vector(0,-5,-10)
-#variaveis
+#variaveis para a altura e largura da tela, ΔT e gravidade para ser atualizada mais tarde segundo cada planeta
 W = 900
 H = 500
 dt = 0.04
@@ -19,8 +20,9 @@ vel = vector(0,-1,0)
 acel = vector(0,g,0)
 origin = vector (0,20,0)
 
-#superficie e contrução do orbe com as asas laterais
+#superficie inicial (Terra)
 surface= box (pos=vector(0, 0, 0), size=vector(20, 0.5, 20),  visible=True, texture={'file':textures.earth})
+#variaveis para a contrução do orbe com as asas laterais
 core = sphere(pos=vec(0,10,0), radius=0.9, color=color.red)
 p1 = cone(pos=vector(0.9,10,0), size=vector(1,1,1), axis=vec(0,0,0), width=1.2, height =1.2, color=color.white)
 p2 = cone(pos=vector(-0.9,10,0), size=vector(1,1,1), axis=vec(-1,0,0), width=1.2, height =1.2, color=color.white )
@@ -56,24 +58,21 @@ def M(m):
         surface.texture = "https://i.imgur.com/ls2fKsP.jpg"
         g = -24.8
         orb.pos = origin
-
     elif val == "Saturno": 
-        surface.texture = {'file':textures.stucco}
+        surface.texture = "https://i.imgur.com/j2iVAmX.jpg"
         g = -10.5 
         orb.pos = origin
-        
     elif val == "Urano": 
-        surface.texture = {'file':textures.rough}
+        surface.texture = "https://i.imgur.com/sIUhUYe.jpg"
         g = -8.9
         orb.pos = origin
     elif val == "Neptuno": 
-        surface.texture = {'file':textures.rock}
+        surface.texture = "https://i.imgur.com/jvds38Z.png"
         g = -11.2
         orb.pos = origin
     
-    
     surface.visible = True
-
+#array dos planetas na combobox
 menu(choices=['Mercúrio', 'Vénus', 'Terra', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno'], index=2, bind=M)  
 
 #função para definir a tecla para iniciar a simulação e os controlos do movimento do orbe 
